@@ -19,10 +19,12 @@ const SERVICES = {
   "product-quality": {
     name: "Critical User Flow Testing",
     subject: "Critical User Flow Testing enquiry",
+    calendlyAnswer: "1",
   },
   "process-coverage": {
     name: "QA Process & Test Coverage Audit",
     subject: "QA Process & Test Coverage Audit enquiry",
+    calendlyAnswer: "2",
   },
 };
 
@@ -52,7 +54,7 @@ function updateSelectedState(serviceId) {
 
 function buildCalendlyUrl(service) {
   const url = new URL(CALENDLY_BASE_URL);
-  url.searchParams.set("a1", service.name);
+  url.searchParams.set("a1", service.calendlyAnswer);
   return url.toString();
 }
 
