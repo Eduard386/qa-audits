@@ -50,6 +50,12 @@ function updateSelectedState(serviceId) {
   });
 }
 
+function buildCalendlyUrl(service) {
+  const url = new URL(CALENDLY_BASE_URL);
+  url.searchParams.set("a1", service.name);
+  return url.toString();
+}
+
 function setDialogView(view) {
   const choiceView = document.getElementById("enquiry-choice-view");
   const formView = document.getElementById("enquiry-form-view");
@@ -112,7 +118,7 @@ function selectService(serviceId) {
   subjectField.value = service.subject;
 
   if (callPath) {
-    callPath.href = CALENDLY_BASE_URL;
+    callPath.href = buildCalendlyUrl(service);
   }
 
   showChoiceView();
