@@ -49,54 +49,71 @@ function updateSelectedState(serviceId) {
   });
 }
 
-function showFormView() {
+function setDialogView(view) {
+  const choiceView = document.getElementById("enquiry-choice-view");
   const formView = document.getElementById("enquiry-form-view");
   const successView = document.getElementById("enquiry-success");
+
+  if (choiceView) {
+    choiceView.hidden = view !== "choice";
+  }
   if (formView) {
-    formView.hidden = false;
+    formView.hidden = view !== "form";
   }
   if (successView) {
-    successView.hidden = true;
+    successView.hidden = view !== "success";
+  }
+}
+
+function showChoiceView() {
+  setStatus("");
+  setDialogView("choice");
+
+  const requestPath = document.getElementById("continue-by-request");
+  if (requestPath) {
+    window.requestAnimationFrame(() => requestPath.focus());
+  }
+}
+
+function showFormView() {
+  setStatus("");
+  setDialogView("form");
+
+  const emailInput = document.getElementById("visitor-email");
+  if (emailInput) {
+    window.requestAnimationFrame(() => emailInput.focus());
   }
 }
 
 function showSuccessView() {
-  const formView = document.getElementById("enquiry-form-view");
-  const successView = document.getElementById("enquiry-success");
-  if (formView) {
-    formView.hidden = true;
-  }
-  if (successView) {
-    successView.hidden = false;
-  }
+  setDialogView("success");
 }
 
 function selectService(serviceId) {
   const service = SERVICES[serviceId];
   const dialog = document.getElementById("enquiry-dialog");
-  const name = document.getElementById("selected-audit-name");
+  const choiceName = document.getElementById("selected-choice-service-name");
+  const formName = document.getElementById("selected-audit-name");
   const serviceField = document.getElementById("audit-field");
   const subjectField = document.getElementById("subject-field");
-  const emailInput = document.getElementById("visitor-email");
 
-  if (!service || !dialog || !name || !serviceField || !subjectField || !emailInput) {
+  if (!service || !dialog || !choiceName || !formName || !serviceField || !subjectField) {
     return;
   }
 
   selectedServiceId = serviceId;
   updateSelectedState(serviceId);
-  setStatus("");
-  showFormView();
 
-  name.textContent = service.name;
+  choiceName.textContent = service.name;
+  formName.textContent = service.name;
   serviceField.value = service.name;
   subjectField.value = service.subject;
+
+  showChoiceView();
 
   if (!dialog.open) {
     dialog.showModal();
   }
-
-  window.requestAnimationFrame(() => emailInput.focus());
 }
 
 function closeDialog() {
@@ -161,6 +178,9 @@ function initEnquiry() {
   const form = document.getElementById("enquiry-form");
   const dialog = document.getElementById("enquiry-dialog");
   const closeButton = document.getElementById("dialog-close");
+  const requestPath = document.getElementById("continue-by-request");
+  const callPath = document.getElementById("continue-by-call");
+  const backButton = document.getElementById("choice-back");
   const successCloseButton = document.getElementById("success-close");
   const emailInput = document.getElementById("visitor-email");
   const replytoField = document.getElementById("replyto-field");
@@ -181,6 +201,18 @@ function initEnquiry() {
 
   if (closeButton) {
     closeButton.addEventListener("click", closeDialog);
+  }
+
+  if (requestPath) {
+    requestPath.addEventListener("click", showFormView);
+  }
+
+  if (callPath) {
+    callPath.addEventListener("click", closeDialog);
+  }
+
+  if (backButton) {
+    backButton.addEventListener("click", showChoiceView);
   }
 
   if (successCloseButton) {
@@ -219,7 +251,7 @@ function initEnquiry() {
 
     submissionPending = false;
     submitButton.disabled = false;
-    submitButton.textContent = "Request this service";
+    submitButton.textContent = "Send request";
     form.reset();
     showSuccessView();
 
