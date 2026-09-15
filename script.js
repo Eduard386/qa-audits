@@ -135,7 +135,7 @@ async function openSampleReport(source, title) {
   viewer.document.body.innerHTML = "<p style=\"font-family:system-ui,sans-serif;padding:24px;color:#475467\">Loading sample report…</p>";
 
   try {
-    const response = await fetch(source, { cache: "force-cache" });
+    const response = await fetch(source, { cache: "no-store" });
     if (!response.ok) {
       throw new Error(`Failed to load sample report: ${response.status}`);
     }
