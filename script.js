@@ -13,15 +13,18 @@ window.addEventListener(
 // Public FormSubmit alias generated for this form. It is safe to keep in client-side code.
 const FORM_TOKEN = "41f939a6574de3488b91b07a4ab5266b";
 const FORM_ENDPOINT = `https://formsubmit.co/${FORM_TOKEN}`;
+const CALENDLY_BASE_URL = "https://calendly.com/qa-services/qa-service-intro-call";
 
 const SERVICES = {
   "product-quality": {
     name: "Critical User Flow Testing",
     subject: "Critical User Flow Testing enquiry",
+    calendlyCampaign: "critical-user-flow-testing",
   },
   "process-coverage": {
     name: "QA Process & Test Coverage Audit",
     subject: "QA Process & Test Coverage Audit enquiry",
+    calendlyCampaign: "qa-process-test-coverage-audit",
   },
 };
 
@@ -47,6 +50,15 @@ function updateSelectedState(serviceId) {
   document.querySelectorAll(".package").forEach((card) => {
     card.classList.toggle("is-selected", card.id === serviceId);
   });
+}
+
+function buildCalendlyUrl(service) {
+  const url = new URL(CALENDLY_BASE_URL);
+  url.searchParams.set("utm_source", "qa-services-site");
+  url.searchParams.set("utm_medium", "website");
+  url.searchParams.set("utm_campaign", service.calendlyCampaign);
+  url.searchParams.set("utm_content", "book-30-minute-call");
+  return url.toString();
 }
 
 function setDialogView(view) {
@@ -96,6 +108,7 @@ function selectService(serviceId) {
   const formName = document.getElementById("selected-audit-name");
   const serviceField = document.getElementById("audit-field");
   const subjectField = document.getElementById("subject-field");
+  const callPath = document.getElementById("continue-by-call");
 
   if (!service || !dialog || !choiceName || !formName || !serviceField || !subjectField) {
     return;
@@ -108,6 +121,10 @@ function selectService(serviceId) {
   formName.textContent = service.name;
   serviceField.value = service.name;
   subjectField.value = service.subject;
+
+  if (callPath) {
+    callPath.href = buildCalendlyUrl(service);
+  }
 
   showChoiceView();
 
