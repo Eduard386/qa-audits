@@ -1,0 +1,74 @@
+.contact-options {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+.contact-path {
+  appearance: none;
+  display: grid;
+  width: 100%;
+  gap: 0.25rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.65rem;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+.contact-path:hover {
+  border-color: #84adff;
+  background: var(--accent-soft);
+  box-shadow: 0 2px 8px rgba(23, 92, 211, 0.08);
+}
+
+.contact-path-primary {
+  border-color: #84adff;
+  background: var(--accent-soft);
+}
+
+.contact-path-title {
+  color: var(--ink-strong);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.contact-path-copy {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.dialog-back {
+  appearance: none;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.dialog-back:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+#enquiry-choice-view h2,
+#enquiry-form-view h2 {
+  margin-bottom: 0.5rem;
+}
+
+#enquiry-choice-view .selected-audit {
+  margin-bottom: 0;
+}
