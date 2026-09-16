@@ -20,7 +20,9 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="modal.css" />
+    <link rel="stylesheet" href="legal.css" />
     <script src="script.js" defer></script>
+    <script src="legal.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -176,7 +178,8 @@
     </main>
 
     <footer class="site-footer wrap">
-      <a href="terms.html">Terms of Service</a>
+      <a class="legal-link" href="terms.html" data-legal-title="Terms of Service">Terms of Service</a>
+      <a class="legal-link" href="privacy.html" data-legal-title="Privacy Notice">Privacy Notice</a>
     </footer>
 
     <dialog id="enquiry-dialog" class="enquiry-dialog" aria-label="Request this service">
@@ -237,6 +240,11 @@
               ></textarea>
             </div>
 
+            <p class="privacy-summary">
+              We use the email address and message you submit only to respond to your enquiry and manage a potential engagement.
+              <a class="legal-link" href="privacy.html" data-legal-title="Privacy Notice">See Privacy Notice.</a>
+            </p>
+
             <button id="enquiry-submit" type="submit" class="button button-primary">Send request</button>
             <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
           </form>
@@ -247,6 +255,16 @@
           <p>We’ll contact you shortly.</p>
           <button type="button" class="button button-primary" id="success-close">Close</button>
         </div>
+      </div>
+    </dialog>
+
+    <dialog id="legal-dialog" class="legal-dialog" aria-labelledby="legal-dialog-title">
+      <div class="legal-dialog-shell">
+        <div class="legal-dialog-header">
+          <h2 id="legal-dialog-title">Legal document</h2>
+          <button type="button" class="legal-dialog-close" id="legal-dialog-close" aria-label="Close legal document">×</button>
+        </div>
+        <div id="legal-dialog-content" class="legal-dialog-content" role="document"></div>
       </div>
     </dialog>
 
