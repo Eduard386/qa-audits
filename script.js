@@ -240,6 +240,11 @@ function initEnquiry() {
   });
 
   form.addEventListener("submit", function (event) {
+    if (submissionPending) {
+      event.preventDefault();
+      return;
+    }
+
     if (!selectedServiceId) {
       event.preventDefault();
       setStatus("Select a service before sending a request.", "error");

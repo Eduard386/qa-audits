@@ -1,0 +1,63 @@
+name: QA Audits CI
+
+on:
+  push:
+    paths:
+      - "*.html"
+      - "*.css"
+      - "*.js"
+      - "samples/**"
+      - "README.md"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    paths:
+      - "*.html"
+      - "*.css"
+      - "*.js"
+      - "samples/**"
+      - "README.md"
+      - ".github/workflows/ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: JavaScript syntax
+        run: |
+          node --check script.js
+          node --check legal.js
+      - name: Static asset smoke checks
+        run: |
+          test -f index.html
+          test -f styles.css
+          test -f modal.css
+          test -f legal.css
+          test -f terms.html
+          test -f privacy.html
+          test -f CNAME
+          grep -q 'https://qa-audits.com/' index.html
+          grep -q 'from \$750' index.html
+          grep -q 'from \$1,200' index.html
+      - name: Validate sample PDFs
+        run: |
+          python3 - <<'PY'
+          import base64
+          from pathlib import Path
+
+          for path in (
+              Path("samples/critical-user-flow-testing-sample.pdf.b64"),
+              Path("samples/qa-process-test-coverage-audit-sample.pdf.b64"),
+          ):
+              raw = "".join(path.read_text(encoding="utf-8").split())
+              payload = base64.b64decode(raw, validate=True)
+              assert payload.startswith(b"%PDF-"), f"{path} is not a PDF"
+              assert len(payload) > 1000, f"{path} is unexpectedly small"
+              print(path, len(payload), "bytes")
+          PY
