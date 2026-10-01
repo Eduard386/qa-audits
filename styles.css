@@ -71,10 +71,6 @@ body {
   padding-block: clamp(1.25rem, 2.6vh, 2rem) clamp(1.35rem, 2.8vh, 2rem);
 }
 
-.hero-copy {
-  max-width: 72rem;
-}
-
 h1,
 h2,
 h3 {
@@ -498,7 +494,6 @@ h1 {
     padding-block: 1.8rem 1.35rem;
   }
 
-  .hero-copy,
   .lede {
     max-width: none;
   }
