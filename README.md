@@ -1,11 +1,13 @@
 # QA Services
 
-A one-page static site for two fixed-price QA services:
+A one-page static site for two independent QA risk-review services:
 
-- **Critical User Flow Testing** ($750, 2–3 business days)
-- **QA Process & Test Coverage Audit** ($1,200, about 5 business days)
+- **Critical User Flow Testing** — from $750, base scope 2–3 business days
+- **QA Process & Test Coverage Audit** — from $1,200, base scope about 5 business days
 
-The page is a service offering, not a personal portfolio. It is plain HTML, CSS, and a small script. There is no application backend, analytics, or build step.
+Listed prices are starting prices for the base scope. The final fixed quote is agreed by scope and documented in the Invoice.
+
+The page is a service offering, not a personal portfolio. It is plain HTML, CSS, and small client-side scripts. There is no application backend, analytics, or build step.
 
 ## Preview locally
 
@@ -43,13 +45,13 @@ The visitor email is sent as the reply-to address so the enquiry can be answered
 
 FormSubmit requires the destination mailbox to confirm the form once. Activate the form from the email sent to the destination mailbox, then verify a second test submission is delivered successfully.
 
-## Before public launch
+## Production checks
 
-1. Confirm the FormSubmit activation email.
-2. Verify a second test enquiry reaches the destination mailbox and that Reply uses the visitor email.
-3. Set a canonical URL in `index.html` (commented placeholder in `<head>`).
-4. Optionally set `og:url` to the live origin.
-5. Replace the temporary Gmail destination with a dedicated service/domain mailbox when available and regenerate/configure the corresponding FormSubmit alias.
+1. Confirm the FormSubmit alias remains active and a test enquiry reaches the destination mailbox.
+2. Verify Reply uses the visitor email.
+3. Keep the canonical URLs and `og:url` aligned with `https://qa-audits.com/`.
+4. Re-check the Calendly service mapping after changing service options.
+5. If the enquiry destination changes, regenerate/configure the corresponding FormSubmit alias rather than embedding a private mailbox address in the page.
 
 ## Static deployment
 
@@ -60,4 +62,4 @@ Any static host works, for example:
 - Cloudflare Pages
 - any web server that serves `index.html`, `styles.css`, and `script.js`
 
-No domain or host is configured in this repository.
+The repository includes `CNAME` for the production domain `qa-audits.com`.
